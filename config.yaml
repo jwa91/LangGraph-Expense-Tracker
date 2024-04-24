@@ -1,0 +1,39 @@
+# Here you can configure your initial list of categories and payment methods
+categories:
+  - Housing
+  - Transportation
+  - Food
+  - Healthcare
+  - Entertainment
+  - Education
+  - Personal Care
+  - Travel
+  - Insurance
+  - Utilities
+  - Technology
+  - Telecommunications
+  - Subscriptions
+  - Office Supplies
+  - Legal Services
+  - Marketing
+  - Accounting and Finance
+  - Human Resources
+  - Consulting
+  - Training and Development
+  - Professional Services
+  - Maintenance and Repairs
+  - Rentals and Leasing
+  - Taxes
+  - Charitable Contributions
+  - Investments
+  - Gifts
+  - Miscellaneous
+  - Business Operations
+  - Research and Development
+
+payment_methods:
+  - Credit Card
+  - Debit Card
+  - Bank Transfer
+  - Cash
+  - Other
