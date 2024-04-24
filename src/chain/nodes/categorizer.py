@@ -1,8 +1,8 @@
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_anthropic import ChatAnthropic
-from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
-from typing import Dict
+from langchain_core.messages import HumanMessage
+
 
 # Definieer een data-model voor de categorizer
 class CategoryData(BaseModel):

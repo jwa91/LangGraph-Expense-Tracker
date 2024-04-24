@@ -19,13 +19,13 @@ def get_payment_methods(state):
 # Functie om gestructureerde gegevens uit een afbeeldingsontvangst te halen
 def get_receipt_json(image_base64: str, state: dict):
     # Model instellen via de state
-    vision_model_name = state.get("model_name", "gpt-4-vision-preview")  # Default to GPT-4 Vision
+    vision_model_name = state.get("vision_model_name", "gpt-4-vision-preview")  # Default to GPT-4 Vision
 
     payment_methods_list = get_payment_methods(state)
     
     # Prompt voor gestructureerde gegevens
     prompt = (
-        "Tell me the details of the receipt. Make sure to call the ReceiptData function.\n"
+        "Tell me the details of the receipt. Make sure to ALWAYS reply by calling the ReceiptData function.NEVER ask the user to provide additional information.\n"
         f"Choose one of the following payment methods for the 'payment_method' field:\n{', '.join(payment_methods_list)}"
     )
 

@@ -1,23 +1,24 @@
 def humancheck_node(state):
-    # Log de huidige state
-    print("humancheck_node called with state:", state)
-
-    # Verkrijg belangrijke informatie uit de state
     image_location = state.get("image_location", "").strip()
-    date = state.get("date", "")
-    category = state.get("category", "")
-    description = state.get("description", "")
-    amount = state.get("amount", "")
+    date = state.get("date", "").strip()
+    category = state.get("category", "").strip()
+    description = state.get("description", "").strip()
+    amount = state.get("amount", "").strip()
+    vat = state.get("vat", "").strip()
+    business_personal = state.get("business_personal", "").strip()
+    payment_method = state.get("payment_method", "").strip()
 
-    # Toon de informatie aan de gebruiker
-    print(f"Afbeelding locatie: {image_location}")
-    print(f"Datum: {date}")
-    print(f"Categorie: {category}")
-    print(f"Beschrijving: {description}")
-    print(f"Bedrag: {amount}")
+    print(f"Image location: {image_location}")
+    print(f"Date: {date}")
+    print(f"Category: {category}")
+    print(f"Description: {description}")
+    print(f"Amount: {amount}")
+    print(f"Vat: {vat}")
+    print(f"Business or Personal: {business_personal}")
+    print(f"Payment method: {payment_method}")
 
     # Vraag de gebruiker om een keuze
-    choice = input("Wilt u deze informatie accepteren (a), het model wijzigen (m), of corrigeren (c)? ")
+    choice = input("Accept(a), Change Model (m) or Correct (c)? ")
 
     # Maak een kopie van de state
     new_state = state.copy()

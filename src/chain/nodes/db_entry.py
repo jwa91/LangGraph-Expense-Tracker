@@ -1,3 +1,4 @@
 
 def db_entry_node(state):
-    pass
+    print("state succes")
+    return state
