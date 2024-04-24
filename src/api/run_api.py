@@ -12,7 +12,6 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Voeg de routers toe
 app.include_router(category_router)
 app.include_router(payment_methods_router)
 app.include_router(expenses_router)

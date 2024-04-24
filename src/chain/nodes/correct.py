@@ -67,12 +67,10 @@ def correct_node(state):
     else:
         chat = ChatOpenAI(model=categorizer_model_name, temperature=0)
 
-    # Stel de gestructureerde LLM in met het CategoryData-schema
     structured_llm = chat.with_structured_output(invoice_summary)
 
     messages = [HumanMessage(content=[{"type": "text", "text": prompt}])]
 
-    # Krijg de categorie van de LLM
     response = structured_llm.invoke(messages)
 
     updated_date = response.dict().get("date", None)
@@ -83,7 +81,6 @@ def correct_node(state):
     updated_business_personal = response.dict().get("business_personal", None)
     updated_payment_method = response.dict().get("payment_method", None)
 
-    # Maak een kopie van de state
     new_state = state.copy()
 
     new_state["date"] = updated_date
@@ -94,8 +91,6 @@ def correct_node(state):
     new_state["business_personal"] = updated_business_personal
     new_state["payment_method"] = updated_payment_method
 
-
-        # Voeg de category_id toe op basis van categories_dict
     if 'category' in new_state and 'categories_dict' in new_state:
         category = new_state["category"]
         categories_dict = new_state["categories_dict"]
@@ -104,7 +99,6 @@ def correct_node(state):
                 new_state["category_id"] = key
                 break
 
-    # Voeg de payment_method_id toe op basis van payment_methods_dict
     if 'payment_method' in new_state and 'payment_methods_dict' in new_state:
         payment_method = new_state["payment_method"]
         payment_methods_dict = new_state["payment_methods_dict"]

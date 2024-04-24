@@ -1,0 +1,504 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "Expense Management API",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/categories": {
+        "get": {
+          "summary": "Get Categories",
+          "operationId": "get_categories_categories_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create Category",
+          "operationId": "create_category_categories_post",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Category",
+          "operationId": "delete_category_categories_delete",
+          "parameters": [
+            {
+              "name": "category_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Category Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/payment_methods": {
+        "get": {
+          "summary": "Get Payment Methods",
+          "operationId": "get_payment_methods_payment_methods_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create Payment Method",
+          "operationId": "create_payment_method_payment_methods_post",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentMethodCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Payment Method",
+          "operationId": "delete_payment_method_payment_methods_delete",
+          "parameters": [
+            {
+              "name": "payment_method_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Payment Method Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/expenses": {
+        "get": {
+          "summary": "Get Expenses",
+          "operationId": "get_expenses_expenses_get",
+          "parameters": [
+            {
+              "name": "category_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Filter by category ID",
+                "title": "Category Id"
+              },
+              "description": "Filter by category ID"
+            },
+            {
+              "name": "payment_method_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Filter by payment method ID",
+                "title": "Payment Method Id"
+              },
+              "description": "Filter by payment method ID"
+            },
+            {
+              "name": "start_date",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Filter by start date",
+                "title": "Start Date"
+              },
+              "description": "Filter by start date"
+            },
+            {
+              "name": "end_date",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Filter by end date",
+                "title": "End Date"
+              },
+              "description": "Filter by end date"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create Expense",
+          "operationId": "create_expense_expenses_post",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExpenseCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Expense",
+          "operationId": "delete_expense_expenses_delete",
+          "parameters": [
+            {
+              "name": "transaction_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "The ID of the transaction to delete",
+                "title": "Transaction Id"
+              },
+              "description": "The ID of the transaction to delete"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "CategoryCreate": {
+          "properties": {
+            "category_name": {
+              "type": "string",
+              "title": "Category Name"
+            }
+          },
+          "type": "object",
+          "required": [
+            "category_name"
+          ],
+          "title": "CategoryCreate"
+        },
+        "ExpenseCreate": {
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date",
+              "title": "Date"
+            },
+            "category_id": {
+              "type": "integer",
+              "title": "Category Id"
+            },
+            "description": {
+              "type": "string",
+              "title": "Description"
+            },
+            "amount": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "Amount"
+            },
+            "vat": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "title": "Vat"
+            },
+            "payment_method_id": {
+              "type": "integer",
+              "title": "Payment Method Id"
+            },
+            "business_personal": {
+              "type": "string",
+              "title": "Business Personal"
+            }
+          },
+          "type": "object",
+          "required": [
+            "date",
+            "category_id",
+            "description",
+            "amount",
+            "vat",
+            "payment_method_id",
+            "business_personal"
+          ],
+          "title": "ExpenseCreate"
+        },
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "PaymentMethodCreate": {
+          "properties": {
+            "payment_method_name": {
+              "type": "string",
+              "title": "Payment Method Name"
+            }
+          },
+          "type": "object",
+          "required": [
+            "payment_method_name"
+          ],
+          "title": "PaymentMethodCreate"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": {
+              "type": "string",
+              "title": "Message"
+            },
+            "type": {
+              "type": "string",
+              "title": "Error Type"
+            }
+          },
+          "type": "object",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError"
+        }
+      }
+    }
+  }

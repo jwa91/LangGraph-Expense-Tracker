@@ -23,7 +23,6 @@ os.environ["LANGCHAIN_PROJECT"] = f"expense-tracker {unique_id}"
 
 client = Client(api_key=os.environ["LANGSMITH_API_KEY"])
 
-# Voeg 'vision_model_name' en 'categorizer_model_name' toe aan GraphState
 class GraphState(TypedDict):
     user_decision: Optional[list]
     image_base64: Optional[str]
@@ -68,24 +67,17 @@ def create_graph_state() -> GraphState:
 def setup_workflow() -> StateGraph:
     workflow = StateGraph(GraphState)
 
-    # Add the base nodes
     workflow.add_node("image_encoder", image_encoder_node)
     workflow.add_node("json_parser", json_parsing_node)
     workflow.add_node("categorizer", categorizer_node)
-
-    # Add the human check node
     workflow.add_node("humancheck", humancheck_node)
-
-    # Define the main flow
     workflow.add_edge("image_encoder", "json_parser")
     workflow.add_edge("json_parser", "categorizer")
     workflow.add_edge("categorizer", "humancheck")
 
-    # Add the new nodes after humancheck
     workflow.add_node("db_entry", db_entry_node)
     workflow.add_node("correct", correct_node)
 
-    # Conditional edges after humancheck
     def decide_humancheck(state):
         if state.get('user_decision') == "accept":
             return "db_entry"
@@ -101,11 +93,10 @@ def setup_workflow() -> StateGraph:
         "correct": "correct"
     })
 
-    # Loop back from correct to humancheck
     workflow.add_edge("correct", "humancheck")
 
     workflow.set_entry_point("image_encoder")
-    workflow.set_finish_point("db_entry")  # Set the endpoint
+    workflow.set_finish_point("db_entry")  
 
     return workflow
 
@@ -113,13 +104,10 @@ def main():
     workflow = setup_workflow()
     app = workflow.compile()
 
-    # Stel de initiële inputs voor de grafiek state in, zonder de bestaande state te overschrijven
-    initial_state = create_graph_state()  # Basis state met standaardwaarden
+    initial_state = create_graph_state() 
 
-    # Voeg de gewenste afbeelding locatie toe
     initial_state["image_location"] = "/Users/jw/developer/expense_tracker/data/walmart-bon.jpeg"
     
-    # Voer de applicatie uit met de bijgewerkte state
     result = app.invoke(initial_state)
 
     print("Final State of the Graph:")

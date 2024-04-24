@@ -11,25 +11,20 @@ class ReceiptData(BaseModel):
     business_personal: str = Field(default=None, description="Indicate whether the payment is business or personal")
     payment_method: str = Field(default=None, description="Indicate the payment method")
 
-# Functie om de betalingsmethodenlijst uit de state te krijgen
 def get_payment_methods(state):
     payment_methods_dict = state.get("payment_methods_dict", {})
     return list(payment_methods_dict.values())
 
-# Functie om gestructureerde gegevens uit een afbeeldingsontvangst te halen
 def get_receipt_json(image_base64: str, state: dict):
-    # Model instellen via de state
-    vision_model_name = state.get("vision_model_name", "gpt-4-vision-preview")  # Default to GPT-4 Vision
+    vision_model_name = state.get("vision_model_name", "gpt-4-vision-preview") 
 
     payment_methods_list = get_payment_methods(state)
     
-    # Prompt voor gestructureerde gegevens
     prompt = (
         "Tell me the details of the receipt. Make sure to ALWAYS reply by calling the ReceiptData function.NEVER ask the user to provide additional information.\n"
         f"Choose one of the following payment methods for the 'payment_method' field:\n{', '.join(payment_methods_list)}"
     )
 
-    # Selecteer het model op basis van de waarde in de state
     if "claude" in vision_model_name.lower():
         chat = ChatAnthropic(model=vision_model_name, temperature=0)
     else:
@@ -37,7 +32,6 @@ def get_receipt_json(image_base64: str, state: dict):
 
     structured_llm = chat.with_structured_output(ReceiptData)
 
-    # Stel het bericht samen met de afbeelding en de prompt
     messages = [
         HumanMessage(
             content=[
@@ -52,13 +46,11 @@ def get_receipt_json(image_base64: str, state: dict):
         )
     ]
 
-    # Voer het model uit
     response = structured_llm.invoke(messages)
 
     return response.dict()
 
 def json_parsing_node(state):
-    print("json_parsing_node called with state:", state)
 
     new_state = state.copy()
 
@@ -66,7 +58,6 @@ def json_parsing_node(state):
 
     receipt_data = get_receipt_json(image_base64, state)
 
-    # Update state met ontvangen gegevens
     new_state["date"] = receipt_data.get("date", None)
     new_state["description"] = receipt_data.get("description", None)
     new_state["amount"] = receipt_data.get("amount", None)
