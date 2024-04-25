@@ -22,6 +22,7 @@ def get_receipt_json(image_base64: str, state: dict):
     
     prompt = (
         "Tell me the details of the receipt. Make sure to ALWAYS reply by calling the ReceiptData function.NEVER ask the user to provide additional information.\n"
+        f"NEVER reply in any other way than caling the function. if you are not sure about some info make a well educated guess, but ALWAYS call the function.\n"
         f"Choose one of the following payment methods for the 'payment_method' field:\n{', '.join(payment_methods_list)}"
     )
 

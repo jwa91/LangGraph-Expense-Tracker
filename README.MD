@@ -1,4 +1,18 @@
-# AI Expense tracker
+# LangGraph Expense tracker
+
+## In short
+
+Small project exploring the possibilitys of LangGraph.
+It lets you sent pictures of invoices, it structures and categorize the expenses and puts them in a database. 
+
+### Visual overview of the project
+
+![Visual overview of the project](documents/langgraph.png)
+To zoom visit the whiteboard [here](https://link.excalidraw.com/l/5NC0r7Sejhe/39ULXmBwigA). 
+
+### Some invoice extraction in action
+
+![input-output-example](documents/invoice_extraction_in_action.png)
 
 ## Project structure
 
@@ -11,6 +25,8 @@
 │   └── walmart-bon.jpeg
 ├── documents
 │   ├── api_documentation.png
+│   ├── langgraph.png
+│   ├── openapi.json
 │   └── pg_admin_screenshot.png
 ├── env.example
 ├── requirements.txt
@@ -40,6 +56,8 @@
         ├── create_categories_and_payment_methods.py
         ├── create_tables.py
         └── db_connection.py
+
+9 directories, 30 files
 ```
 
 ## Step by step
@@ -167,3 +185,7 @@ This is the main table for tracking expenses. It contains information such as th
 
 ## API 
 See API documentation here: [openapi.json](documents/openapi.json)
+
+## LangChain
+the way this chain works is best described by showing the LangSmith Trace: 
+[click here to have a look](https://smith.langchain.com/public/6aed5b64-0a5d-41ce-946b-5e5ad6cbf227/r)

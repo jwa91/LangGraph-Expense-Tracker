@@ -1,19 +1,23 @@
 import requests
 
 def db_entry_node(state):
-    # Extracting values from the given state
-    date = state.get("date", "").strip()
-    category_id = state.get("category_id", "").strip()
-    description = state.get("description", "").strip()
-    amount = state.get("amount", "").strip()
-    vat = state.get("vat", "").strip()
-    business_personal = state.get("business_personal", "").strip()
-    payment_method_id = state.get("payment_method_id", "").strip()
+    def get_str_safe(key):
+        value = state.get(key, "")
+        if isinstance(value, str):
+            return value.strip()
+        else:
+            return str(value)  # Needs a better fix but for now its ok.
 
-    # The endpoint URL
+    date = get_str_safe("date")
+    category_id = get_str_safe("category_id")
+    description = get_str_safe("description")
+    amount = get_str_safe("amount")
+    vat = get_str_safe("vat")
+    business_personal = get_str_safe("business_personal")
+    payment_method_id = get_str_safe("payment_method_id")
+
     url = "http://localhost:8000/expenses"
     
-    # Data to be sent in the POST request
     data = {
         "date": date,
         "category_id": category_id,
