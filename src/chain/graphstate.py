@@ -110,8 +110,7 @@ def main():
     
     result = app.invoke(initial_state)
 
-    print("Final State of the Graph:")
-    print(result)
+    print("Finished run")
 
 if __name__ == "__main__":
     main()

@@ -4,7 +4,7 @@ from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 
 class ReceiptData(BaseModel):
-    date: str = Field(default=None, description="The date of the receipt")
+    date: str = Field(default=None, description="The date of the receipt format should be like 2024-04-25")
     description: str = Field(default=None, description="A brief description of the payment")
     amount: str = Field(default=None, description="The total amount paid")
     vat: str = Field(default=None, description="The total VAT (taxes) paid")
